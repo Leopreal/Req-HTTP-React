@@ -9,17 +9,19 @@ function App() {
   const [produtos, setProdutos] = useState([])
 
   //resgatando dados
-  useEffect(async() => {
-  
-    const response = await fetch(url)
-
-    const data = await response.json()
-
-    setProdutos(data)
-
-  }, [])
-
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const res = await fetch("http://localhost:3000/products");
+      const data = await res.json();
+      setProdutos(data)
+      return (data)
+    }
+    fetchData();
+  }, []); // Or [] if effect doesn't need props or state
   console.log(produtos)
+
+  
 
   return (
     <div className="App">
